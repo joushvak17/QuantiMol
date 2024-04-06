@@ -7,4 +7,4 @@ Project Files:
 - OutputFrame.py: Tkinter frame that allows for user to navigate through the uploaded data, visualize 2D molecular images, and see individual values
 
 Image Files (Most images accquired from Flaticon.com):
-- icon.ico: Main interface file icon image. Biological icons created by wanicon - Flaticon
+- icon.ico: Main interface file icon image.
