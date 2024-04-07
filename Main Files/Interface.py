@@ -1,5 +1,9 @@
 import tkinter as tk
 
+from InputFrame import InputFrame
+from OutputFrame import OutputFrame
+from TableFrame import TableFrame
+
 try:
     from ctypes import windll
 
@@ -15,7 +19,16 @@ class Interface(tk.Tk):
         self.geometry('1400x800')
         self.resizable(False, False)
         self.configure(bg='#0F0F0F')
-        self.iconbitmap("Image Files/icon.ico")
+        self.iconbitmap("Image Files/Icon.ico")
+
+        table_frame = TableFrame(self)
+        output_frame = OutputFrame(self)
+        input_frame = InputFrame(self, table_frame, output_frame)
+        output_frame.set_input_frame(input_frame)
+
+        input_frame.pack(side='left', fill='both', expand=False, padx=15, pady=15)
+        table_frame.pack(side='top', fill='both', expand=True, padx=15, pady=15)
+        output_frame.pack(side='top', fill='both', expand=False, padx=15, pady=15)
 
 
 root = Interface()
