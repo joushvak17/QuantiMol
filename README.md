@@ -20,3 +20,4 @@ MLModels:
 XGBClassifierEGFR.joblib: Main machine learning classifier for binary activity class
 
 ![Capture](https://github.com/joushvak17/EGFR-QSAR-Modeling-Software/assets/23502527/f6e0ad14-283f-4c0b-a25d-b6590d45a062)
+<p align="center"> Current window application of EGFR QSAR Modeling Software </p>
