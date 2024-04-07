@@ -32,7 +32,7 @@ class TableFrame(tk.Frame):
         for i, col_name in enumerate(df.columns):
             max_length = max(df[col_name].map(str).map(len).max(), len(str(col_name)))
 
-            column_width = max_length * 8
+            column_width = max_length * 10
 
             self.tree.column(i, width=column_width, stretch=tk.NO)
             self.tree.heading(i, text=col_name)

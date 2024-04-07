@@ -10,7 +10,12 @@ import customtkinter as ctk
 class OutputFrame(tk.Frame):
     def __init__(self, container):
         super().__init__(container)
-        self.configure(bg='#222831', width=700, height=350)
+        self.configure(bg='#222831',
+                       width=700,
+                       height=350,
+                       highlightcolor='white',
+                       highlightbackground='white',
+                       highlightthickness=1)
         self.pack_propagate(0)
         self.input_frame = None
 

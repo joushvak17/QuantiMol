@@ -16,7 +16,7 @@ class Interface(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title('EGFR QSAR Modeling Software')
-        self.geometry('1400x800')
+        self.geometry('1400x900')
         self.resizable(False, False)
         self.configure(bg='#0F0F0F')
         self.iconbitmap("Image Files/Icon.ico")

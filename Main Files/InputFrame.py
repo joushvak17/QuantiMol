@@ -151,10 +151,18 @@ class InputFrame(tk.Frame):
         self.computed_df = None
         self.table_frame = table_frame
         self.output_frame = output_frame
-        self.configure(bg='#222831', width=600, height=700)
+        self.configure(bg='#222831',
+                       width=600,
+                       height=700,
+                       highlightcolor='white',
+                       highlightbackground='white',
+                       highlightthickness=1)
 
         upload_delete_frame = tk.Frame(self, bg='#222831')
         upload_delete_frame.pack(side='top', fill='x')
+
+        udf_sep = ttk.Separator(self, orient='horizontal')
+        udf_sep.pack(side='top', fill='x')
 
         upload_delete_frame.columnconfigure(0, weight=1)
         upload_delete_frame.columnconfigure(1, weight=1)
@@ -189,7 +197,10 @@ class InputFrame(tk.Frame):
         self.delete_button.grid(row=0, column=1, padx=20, pady=10)
 
         treelist_frame = tk.Frame(self, bg='#222831')
-        treelist_frame.pack(side='top', fill='x', padx=20, pady=10)
+        treelist_frame.pack(side='top', fill='x', padx=10, pady=20)
+
+        treelistframe_sep = ttk.Separator(self, orient='horizontal')
+        treelistframe_sep.pack(side='top', fill='x')
 
         scrollbar = tk.Scrollbar(treelist_frame, borderwidth=0, relief='flat')
         scrollbar.pack(side='left', fill='y')
@@ -215,6 +226,9 @@ class InputFrame(tk.Frame):
 
         compute_export_frame = tk.Frame(self, bg='#222831')
         compute_export_frame.pack(side='top', fill='x')
+
+        # cef_sep = ttk.Separator(self, orient='horizontal')
+        # cef_sep.pack(side='top', fill='x')
 
         compute_export_frame.columnconfigure(0, weight=1)
         compute_export_frame.columnconfigure(1, weight=1)
@@ -251,6 +265,9 @@ class InputFrame(tk.Frame):
         analysis_visual_frame = tk.Frame(self, bg='#222831')
         analysis_visual_frame.pack(side='top', fill='x')
 
+        avf_sep = ttk.Separator(self, orient='horizontal')
+        avf_sep.pack(side='top', fill='x')
+
         analysis_visual_frame.columnconfigure(0, weight=1)
         analysis_visual_frame.columnconfigure(1, weight=1)
 
@@ -280,4 +297,13 @@ class InputFrame(tk.Frame):
                                            text='Data Visualization',
                                            state=tk.DISABLED,
                                            image=visual_img)
-        self.visual_button.grid(row=0, column=1, padx=(30, 15), pady=10)
+        self.visual_button.grid(row=0, column=1, padx=(30, 20), pady=10)
+
+        av_frame = tk.Frame(self, bg='#222831')
+        av_frame.pack(side='top', fill='both', expand=True)
+        self.av_label = tk.Label(av_frame,
+                                 bg='#222831',
+                                 text='Data Analysis/Visualization Frame',
+                                 font=('Default Font Family', 10),
+                                 fg='#EEEEEE')
+        self.av_label.pack(side='left', fill='both', expand=True)
