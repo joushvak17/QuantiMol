@@ -216,6 +216,9 @@ class InputFrame(tk.Frame):
         compute_export_frame = tk.Frame(self, bg='#222831')
         compute_export_frame.pack(side='top', fill='x')
 
+        compute_export_frame.columnconfigure(0, weight=1)
+        compute_export_frame.columnconfigure(1, weight=1)
+
         compute_img = Image.open("Image Files/Compute.png")
         compute_img = compute_img.resize((50, 50))
         compute_img = ctk.CTkImage(compute_img)
@@ -229,7 +232,7 @@ class InputFrame(tk.Frame):
                                             state=tk.DISABLED,
                                             command=self.compute_data,
                                             image=compute_img)
-        self.compute_button.pack(side='left', padx=30, pady=10)
+        self.compute_button.grid(row=0, column=0, padx=20, pady=10)
 
         export_img = Image.open("Image Files/CSV.png")
         export_img = export_img.resize((50, 50))
@@ -243,4 +246,38 @@ class InputFrame(tk.Frame):
                                            state=tk.DISABLED,
                                            command=self.export_data,
                                            image=export_img)
-        self.export_button.pack(side='right', padx=(30, 30), pady=10)
+        self.export_button.grid(row=0, column=1, padx=20, pady=10)
+
+        analysis_visual_frame = tk.Frame(self, bg='#222831')
+        analysis_visual_frame.pack(side='top', fill='x')
+
+        analysis_visual_frame.columnconfigure(0, weight=1)
+        analysis_visual_frame.columnconfigure(1, weight=1)
+
+        analysis_img = Image.open("Image Files/Analysis.png")
+        analysis_img = analysis_img.resize((50, 50))
+        analysis_img = ctk.CTkImage(analysis_img)
+
+        self.analysis_button = ctk.CTkButton(analysis_visual_frame,
+                                             corner_radius=64,
+                                             fg_color='#0F0F0F',
+                                             border_color='#F6B17A',
+                                             border_width=2,
+                                             text='Data Analysis',
+                                             state=tk.DISABLED,
+                                             image=analysis_img)
+        self.analysis_button.grid(row=0, column=0, padx=(30, 25), pady=10)
+
+        visual_img = Image.open("Image Files/Visualization.png")
+        visual_img = visual_img.resize((50, 50))
+        visual_img = ctk.CTkImage(visual_img)
+
+        self.visual_button = ctk.CTkButton(analysis_visual_frame,
+                                           corner_radius=64,
+                                           fg_color='#0F0F0F',
+                                           border_color='#F6B17A',
+                                           border_width=2,
+                                           text='Data Visualization',
+                                           state=tk.DISABLED,
+                                           image=visual_img)
+        self.visual_button.grid(row=0, column=1, padx=(30, 15), pady=10)
