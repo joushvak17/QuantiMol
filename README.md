@@ -6,7 +6,7 @@ Project Files:
 - TableFrame.py: Tkinter frame that shows a dataframe of calculated descriptor values and activity predictions
 - OutputFrame.py: Tkinter frame that allows for user to navigate through the uploaded data, visualize 2D molecular images, and see individual values
 
-Image Files (Most images accquired from Flaticon.com):
+Image Files:
 - Icon.ico: Main interface file icon image
 - Compute.png: Image file for compute button
 - CSV.png: Image file for export button
