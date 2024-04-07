@@ -7,4 +7,14 @@ Project Files:
 - OutputFrame.py: Tkinter frame that allows for user to navigate through the uploaded data, visualize 2D molecular images, and see individual values
 
 Image Files (Most images accquired from Flaticon.com):
-- icon.ico: Main interface file icon image.
+- Icon.ico: Main interface file icon image
+- Compute.png: Image file for compute button
+- CSV.png: Image file for export button
+- Delete.png: Image file for delete button
+- Next.png: Image file for next button
+- Previous.png: Image file for previous button
+- Search.png: Image file for search button
+- Upload.png: Image file for upload button
+
+MLModels:
+-XGBClassifierEGFR.joblib: Main machine learning classifier for binary activity class
