@@ -8,6 +8,7 @@ Project Files:
 
 Image Files:
 - Icon.ico: Main interface file icon image
+- Analysis.png: Image file for data analysis button
 - Compute.png: Image file for compute button
 - CSV.png: Image file for export button
 - Delete.png: Image file for delete button
@@ -15,6 +16,7 @@ Image Files:
 - Previous.png: Image file for previous button
 - Search.png: Image file for search button
 - Upload.png: Image file for upload button
+- Visualization.png: Image file for data visualization button
 
 MLModels:
 XGBClassifierEGFR.joblib: Main machine learning classifier for binary activity class
