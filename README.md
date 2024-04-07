@@ -17,6 +17,6 @@ Image Files (Most images accquired from Flaticon.com):
 - Upload.png: Image file for upload button
 
 MLModels:
--XGBClassifierEGFR.joblib: Main machine learning classifier for binary activity class
+XGBClassifierEGFR.joblib: Main machine learning classifier for binary activity class
 
 ![Capture](https://github.com/joushvak17/EGFR-QSAR-Modeling-Software/assets/23502527/f6e0ad14-283f-4c0b-a25d-b6590d45a062)
