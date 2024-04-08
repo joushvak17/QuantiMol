@@ -30,6 +30,7 @@ class Interface(tk.Tk):
         table_frame.pack(side='top', fill='both', expand=True, padx=15, pady=15)
         output_frame.pack(side='top', fill='both', expand=False, padx=15, pady=15)
 
+
 if __name__ == '__main__':
     root = Interface()
     root.mainloop()

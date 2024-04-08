@@ -1,5 +1,6 @@
 import os
 import tkinter as tk
+from multiprocessing import cpu_count
 from tkinter import filedialog
 from tkinter import messagebox
 from tkinter import ttk
@@ -7,10 +8,11 @@ from tkinter import ttk
 import customtkinter as ctk
 import numpy as np
 import pandas as pd
-from joblib import load
 from PIL import Image
+from joblib import load
+
 from DataOperations import compute_descriptors, descriptors_calculation
-from multiprocessing import cpu_count
+
 
 class InputFrame(tk.Frame):
 

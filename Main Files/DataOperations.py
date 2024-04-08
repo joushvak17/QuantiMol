@@ -1,11 +1,13 @@
-import pandas as pd
 from multiprocessing import Pool
+
+import pandas as pd
 from rdkit import Chem
 from rdkit.Chem import (rdMolDescriptors as
                         rdmd,
                         GraphDescriptors,
                         Descriptors,
                         FindMolChiralCenters)
+
 
 def compute_descriptors(smile):
     mol = Chem.MolFromSmiles(smile)

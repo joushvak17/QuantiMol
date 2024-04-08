@@ -1,10 +1,11 @@
+import io
 import tkinter as tk
 from tkinter import messagebox, ttk
+
+import customtkinter as ctk
+from PIL import Image, ImageTk
 from rdkit import Chem
 from rdkit.Chem import Draw
-from PIL import Image, ImageTk
-import io
-import customtkinter as ctk
 
 
 class OutputFrame(tk.Frame):
