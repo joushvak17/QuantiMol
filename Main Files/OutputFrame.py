@@ -97,6 +97,7 @@ class OutputFrame(tk.Frame):
         self.position = 0
 
     def search_image(self):
+        self.info_text.configure(state='normal')
         input_value = self.entry.get()
         if not input_value.isdigit():
             messagebox.showerror('Error', 'Please enter a valid number!')
@@ -130,12 +131,13 @@ class OutputFrame(tk.Frame):
             for descriptor, value in row_values.items():
                 line = f'{descriptor}: {value}\n'
                 self.info_text.insert('end', line)
+            self.info_text.configure(state="disabled")
 
         self.entry.delete(0, 'end')
 
     def load_smiles(self):
+        self.info_text.configure(state='normal')
         if len(self.smiles_list) > 0:
-            self.info_text.configure(state='normal')
             self.show_smiles(self.smiles_list[0])
 
             if self.input_frame:
@@ -155,6 +157,7 @@ class OutputFrame(tk.Frame):
             self.btn_search.configure(state=tk.NORMAL)
 
     def prev_image(self):
+        self.info_text.configure(state='normal')
         if self.position > 0:
             self.position -= 1
             self.show_smiles(self.smiles_list[self.position])
@@ -168,6 +171,7 @@ class OutputFrame(tk.Frame):
                 for descriptor, value in row_values.items():
                     line = f'{descriptor}: {value}\n'
                     self.info_text.insert('end', line)
+                self.info_text.configure(state="disabled")
 
             self.btn_next.configure(state=tk.NORMAL)
 
@@ -175,6 +179,7 @@ class OutputFrame(tk.Frame):
             self.btn_previous.configure(state=tk.DISABLED)
 
     def next_image(self):
+        self.info_text.configure(state='normal')
         if self.position < len(self.smiles_list) - 1:
             self.position += 1
             self.show_smiles(self.smiles_list[self.position])
@@ -188,6 +193,7 @@ class OutputFrame(tk.Frame):
                 for descriptor, value in row_values.items():
                     line = f'{descriptor}: {value}\n'
                     self.info_text.insert('end', line)
+                self.info_text.configure(state="disabled")
 
             self.btn_previous.configure(state=tk.NORMAL)
 

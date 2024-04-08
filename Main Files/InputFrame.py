@@ -227,9 +227,6 @@ class InputFrame(tk.Frame):
         compute_export_frame = tk.Frame(self, bg='#222831')
         compute_export_frame.pack(side='top', fill='x')
 
-        # cef_sep = ttk.Separator(self, orient='horizontal')
-        # cef_sep.pack(side='top', fill='x')
-
         compute_export_frame.columnconfigure(0, weight=1)
         compute_export_frame.columnconfigure(1, weight=1)
 
