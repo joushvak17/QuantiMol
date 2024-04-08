@@ -20,5 +20,6 @@ Image Files:
 - Visualization.png: Image file for data visualization button
 
 MLModels:
-XGBClassifierEGFR.joblib: Main machine learning classifier for binary activity class
+XGBClassifierEGFR.joblib: 
+- Main machine learning classifier for binary activity class
 ___
