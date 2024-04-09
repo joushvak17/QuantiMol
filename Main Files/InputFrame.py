@@ -101,9 +101,68 @@ class InputFrame(tk.Frame):
         self.compute_button.configure(state=tk.DISABLED)
         self.upload_button.configure(state=tk.DISABLED)
         self.export_button.configure(state=tk.NORMAL)
+        self.visual_button.configure(state=tk.NORMAL)
+        # self.analysis_button.configure(state=tk.NORMAL)
+
+    def visualize_data(self):
+        self.av_label.destroy()
+        self.v_label = ctk.CTkLabel(self.av_frame,
+                                    text='Enter the type of plot you would like to visualize:\n(Options '
+                                         'include pariwise scatter plot, bar plot, and histogram plot)')
+        self.v_label.pack(side='top', pady=10)
+
+        self.v_entry = ctk.CTkEntry(self.av_frame, width=200)
+        self.v_entry.pack(side='top', pady=10)
+
+        self.v_button = ctk.CTkButton(self.av_frame,
+                                      text='Enter',
+                                      corner_radius=64,
+                                      fg_color='#0F0F0F',
+                                      border_color='#F6B17A',
+                                      border_width=2,
+                                      command=self.select_data)
+        self.v_button.pack(side='top', pady=10)
+
+    def select_data(self):
+        entered_value = self.v_entry.get().lower()
+        plot_types = ['bar plot', 'histogram plot', 'histogram', 'scatter plot', 'pairwise scatter plot']
+
+        if entered_value in plot_types:
+            if entered_value == 'scatter plot' or 'pairwise scatter plot':
+                self.v_entry.delete(0, 'end')
+                self.v_label.configure(text='Enter the two columns you want to compare against the target activity:')
+                self.v_button.configure(text='Visualize')
+            elif entered_value == 'bar plot' or 'histogram' or 'histogram plot':
+                self.v_entry.delete(0, 'end')
+        else:
+            tk.messagebox.showerror('Invalid Input', 'Invalid plot type. '
+                                                     'Please enter a valid type or check for spelling mistakes.')
+
+    def analyze_data(self):
+        self.av_label.destroy()
+        self.a_label = ctk.CTkLabel(self.av_frame,
+                                    text='Enter the type of analysis you would like to perform:')
+        self.a_label.pack(side='top')
+
+        self.a_entry = ctk.CTkEntry(self.av_frame, width=200)
+        self.a_entry.pack(side='top')
+
+        self.a_button = ctk.CTkButton(self.av_frame,
+                                      text='Enter',
+                                      corner_radius=64,
+                                      fg_color='#0F0F0F',
+                                      border_color='#F6B17A',
+                                      border_width=2)
+        self.a_button.pack(side='top')
 
     def __init__(self, container, table_frame=None, output_frame=None, **kwargs):
         super().__init__(container, **kwargs)
+        self.a_button = None
+        self.v_button = None
+        self.a_entry = None
+        self.v_entry = None
+        self.a_label = None
+        self.v_label = None
         self.computed_df = None
         self.table_frame = table_frame
         self.output_frame = output_frame
@@ -215,46 +274,48 @@ class InputFrame(tk.Frame):
                                            image=export_img)
         self.export_button.grid(row=0, column=1, padx=20, pady=10)
 
-        analysis_visual_frame = tk.Frame(self, bg='#222831')
-        analysis_visual_frame.pack(side='top', fill='x')
+        self.analysis_visual_frame = tk.Frame(self, bg='#222831')
+        self.analysis_visual_frame.pack(side='top', fill='x')
 
         avf_sep = ttk.Separator(self, orient='horizontal')
         avf_sep.pack(side='top', fill='x')
 
-        analysis_visual_frame.columnconfigure(0, weight=1)
-        analysis_visual_frame.columnconfigure(1, weight=1)
+        self.analysis_visual_frame.columnconfigure(0, weight=1)
+        self.analysis_visual_frame.columnconfigure(1, weight=1)
 
         analysis_img = Image.open("Image Files/Analysis.png")
         analysis_img = analysis_img.resize((50, 50))
         analysis_img = ctk.CTkImage(analysis_img)
 
-        self.analysis_button = ctk.CTkButton(analysis_visual_frame,
+        self.analysis_button = ctk.CTkButton(self.analysis_visual_frame,
                                              corner_radius=64,
                                              fg_color='#0F0F0F',
                                              border_color='#F6B17A',
                                              border_width=2,
                                              text='Data Analysis',
                                              state=tk.DISABLED,
-                                             image=analysis_img)
+                                             image=analysis_img,
+                                             command=self.analyze_data)
         self.analysis_button.grid(row=0, column=0, padx=(30, 25), pady=10)
 
         visual_img = Image.open("Image Files/Visualization.png")
         visual_img = visual_img.resize((50, 50))
         visual_img = ctk.CTkImage(visual_img)
 
-        self.visual_button = ctk.CTkButton(analysis_visual_frame,
+        self.visual_button = ctk.CTkButton(self.analysis_visual_frame,
                                            corner_radius=64,
                                            fg_color='#0F0F0F',
                                            border_color='#F6B17A',
                                            border_width=2,
                                            text='Data Visualization',
                                            state=tk.DISABLED,
-                                           image=visual_img)
+                                           image=visual_img,
+                                           command=self.visualize_data)
         self.visual_button.grid(row=0, column=1, padx=(30, 20), pady=10)
 
-        av_frame = tk.Frame(self, bg='#222831')
-        av_frame.pack(side='top', fill='both', expand=True)
-        self.av_label = tk.Label(av_frame,
+        self.av_frame = tk.Frame(self, bg='#222831')
+        self.av_frame.pack(side='top', fill='both', expand=True)
+        self.av_label = tk.Label(self.av_frame,
                                  bg='#222831',
                                  text='Data Analysis/Visualization Frame',
                                  font=('Default Font Family', 10),
