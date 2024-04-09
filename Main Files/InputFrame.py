@@ -10,6 +10,8 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 from joblib import load
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+from matplotlib.figure import Figure
 
 from DataOperations import compute_descriptors, descriptors_calculation
 
@@ -108,11 +110,12 @@ class InputFrame(tk.Frame):
         self.av_label.destroy()
         self.v_label = ctk.CTkLabel(self.av_frame,
                                     text='Enter the type of plot you would like to visualize:\n(Options '
-                                         'include pariwise scatter plot, bar plot, and histogram plot)')
+                                         'include pairwise scatter plot, box plot, and histogram plot)')
         self.v_label.pack(side='top', pady=10)
 
         self.v_entry = ctk.CTkEntry(self.av_frame, width=200)
         self.v_entry.pack(side='top', pady=10)
+        self.v_entry.bind("<Return>", lambda event: self.select_data())
 
         self.v_button = ctk.CTkButton(self.av_frame,
                                       text='Enter',
@@ -123,20 +126,206 @@ class InputFrame(tk.Frame):
                                       command=self.select_data)
         self.v_button.pack(side='top', pady=10)
 
+        self.v_exit_button = ctk.CTkButton(self.av_frame,
+                                           text='Exit',
+                                           corner_radius=64,
+                                           fg_color='#0F0F0F',
+                                           border_color='#F6B17A',
+                                           border_width=2,
+                                           command=self.exit_visualize_data)
+        self.v_exit_button.pack(side='top', pady=10)
+
+    def exit_visualize_data(self):
+        self.after_cancel(self.visualize_data)
+        self.after_cancel(self.select_data)
+        self.after_cancel(self.hist)
+        self.after_cancel(self.scatter)
+        self.after_cancel(self.box)
+
+        if hasattr(self, "v_label"):
+            self.v_label.destroy()
+        if hasattr(self, "v_entry"):
+            self.v_entry.destroy()
+        if hasattr(self, "v_button"):
+            self.v_button.destroy()
+        if hasattr(self, "v_exit_button"):
+            self.v_exit_button.destroy()
+
+        self.av_label = tk.Label(self.av_frame,
+                                 bg='#222831',
+                                 text='Data Analysis/Visualization Frame',
+                                 font=('Default Font Family', 10),
+                                 fg='#EEEEEE')
+        self.av_label.pack(side='left', fill='both', expand=True)
+
     def select_data(self):
         entered_value = self.v_entry.get().lower()
-        plot_types = ['bar plot', 'histogram plot', 'histogram', 'scatter plot', 'pairwise scatter plot']
+        plot_types = ['box plot',
+                      'boxplot',
+                      'histogram plot',
+                      'histogram',
+                      'scatter plot',
+                      'pairwise scatter plot',
+                      'scatter']
 
         if entered_value in plot_types:
-            if entered_value == 'scatter plot' or 'pairwise scatter plot':
+            self.v_button.configure(state=tk.DISABLED)
+            if entered_value == 'scatter plot' or entered_value == 'pairwise scatter plot':
+                self.v_button.configure(command=lambda: None)
                 self.v_entry.delete(0, 'end')
-                self.v_label.configure(text='Enter the two columns you want to compare against the target activity:')
-                self.v_button.configure(text='Visualize')
-            elif entered_value == 'bar plot' or 'histogram' or 'histogram plot':
+                self.v_entry.configure(width=300)
+                self.v_entry.unbind('<Return>')
+                self.v_entry.bind("<Return>", lambda event: self.scatter())
+                self.v_label.configure(text='Enter the two columns you want to compare against the target '
+                                            'activity:\n(Seperate the two columns by comma)')
+                self.v_button.configure(text='Visualize', state=tk.NORMAL, command=self.scatter)
+            elif entered_value == 'histogram' or entered_value == 'histogram plot':
+                self.v_button.configure(command=lambda: None)
                 self.v_entry.delete(0, 'end')
+                self.v_entry.configure(width=200)
+                self.v_entry.unbind('<Return>')
+                self.v_entry.bind("<Return>", lambda event: self.hist())
+                self.v_label.configure(text='Enter the column you want to visualize a histogram with:')
+                self.v_button.configure(text='Visualize', state=tk.NORMAL, command=self.hist)
+            else:
+                self.v_button.configure(command=lambda: None)
+                self.v_entry.delete(0, 'end')
+                self.v_entry.configure(width=200)
+                self.v_entry.unbind('<Return>')
+                self.v_entry.bind("<Return>", lambda event: self.box())
+                self.v_label.configure(text='Enter the column you want to visualize a box plot with:')
+                self.v_button.configure(text='Visualize', state=tk.NORMAL, command=self.box)
         else:
             tk.messagebox.showerror('Invalid Input', 'Invalid plot type. '
                                                      'Please enter a valid type or check for spelling mistakes.')
+            self.v_entry.delete(0, 'end')
+
+    def hist(self):
+        entered_value = self.v_entry.get().lower().strip()
+
+        self.temp_df = self.computed_df.copy()
+        self.temp_df.columns = map(str.lower, self.temp_df.columns)
+
+        if entered_value not in self.temp_df:
+            tk.messagebox.showerror('Invalid Input',
+                                    'The columns specified were not found in the data.')
+            self.v_entry.delete(0, 'end')
+            return
+
+        fig = Figure(figsize=(7, 4), dpi=100)
+        ax = fig.add_subplot(111)
+        fig.subplots_adjust(bottom=0.2)
+        ax.hist(self.temp_df[entered_value], bins=30, edgecolor='black')
+        ax.set_xlabel(entered_value)
+        ax.set_ylabel('Frequency')
+        ax.set_title(f'Histogram of {entered_value.upper()}')
+
+        hist_win = tk.Toplevel(self)
+        hist_win.wm_title("Histogram")
+        hist_win.iconbitmap("Image Files/Icon.ico")
+
+        canvas = FigureCanvasTkAgg(fig, master=hist_win)
+        canvas.draw()
+        canvas.get_tk_widget().pack(fill='both', expand=True)
+
+        toolbar = NavigationToolbar2Tk(canvas, hist_win)
+        toolbar.update()
+
+        def on_resize(event):
+            width, height = event.width, event.height
+            dpi = fig.get_dpi()
+            fig.set_size_inches(width / dpi, height / dpi)
+            canvas.draw()
+
+        hist_win.bind('<Configure>', on_resize)
+
+    def box(self):
+        entered_value = self.v_entry.get().lower().strip()
+
+        self.temp_df = self.computed_df.copy()
+        self.temp_df.columns = map(str.lower, self.temp_df.columns)
+
+        if entered_value not in self.temp_df.columns:
+            tk.messagebox.showerror('Invalid Input',
+                                    'The column specified was not found in the data.')
+            self.v_entry.delete(0, 'end')
+            return
+
+        fig = Figure(figsize=(7, 4), dpi=100)
+        ax = fig.add_subplot(111)
+        fig.subplots_adjust(bottom=0.2)
+        ax.boxplot(self.temp_df[entered_value], patch_artist=True,
+                   boxprops=dict(edgecolor='black'))
+        ax.set_xlabel(entered_value)
+        ax.set_ylabel('Distribution')
+        ax.set_title(f'Boxplot of {entered_value.upper()}')
+
+        box_win = tk.Toplevel(self)
+        box_win.wm_title("Boxplot")
+        box_win.iconbitmap("Image Files/Icon.ico")
+
+        canvas = FigureCanvasTkAgg(fig, master=box_win)
+        canvas.draw()
+        canvas.get_tk_widget().pack(fill='both', expand=True)
+
+        toolbar = NavigationToolbar2Tk(canvas, box_win)
+        toolbar.update()
+
+        def on_resize(event):
+            width, height = event.width, event.height
+            dpi = fig.get_dpi()
+            fig.set_size_inches(width / dpi, height / dpi)
+            canvas.draw()
+
+        box_win.bind('<Configure>', on_resize)
+
+    def scatter(self):
+        entered_columns = self.v_entry.get().split(",")
+        if len(entered_columns) == 2:
+            column_1 = entered_columns[0].lower().strip()
+            column_2 = entered_columns[1].lower().strip()
+
+            self.temp_df = self.computed_df.copy()
+            self.temp_df.columns = map(str.lower, self.temp_df.columns)
+
+            if column_1 not in self.temp_df or column_2 not in self.temp_df:
+                tk.messagebox.showerror('Invalid Input',
+                                        'One or both of the columns specified were not '
+                                        'found in the data.')
+                self.v_entry.delete(0, 'end')
+                return
+
+            fig = Figure(figsize=(7, 4), dpi=100)
+            ax = fig.add_subplot(111)
+            fig.subplots_adjust(bottom=0.3)
+            ax.scatter(self.temp_df[column_1], self.temp_df[column_2])
+            ax.set_xlabel(column_1.upper())
+            ax.set_ylabel(column_2.upper())
+            ax.set_title(f'Scatter Plot of {column_1.upper()} vs {column_2.upper()}')
+
+            scatter_win = tk.Toplevel(self)
+            scatter_win.wm_title("Scatter Plot")
+            scatter_win.iconbitmap("Image Files/Icon.ico")
+
+            canvas = FigureCanvasTkAgg(fig, master=scatter_win)
+            canvas.draw()
+            canvas.get_tk_widget().pack(fill='both', expand=True)
+
+            toolbar = NavigationToolbar2Tk(canvas, scatter_win)
+            toolbar.update()
+
+            def on_resize(event):
+                width, height = event.width, event.height
+                dpi = fig.get_dpi()
+                fig.set_size_inches(width / dpi, height / dpi)
+                canvas.draw()
+
+            scatter_win.bind('<Configure>', on_resize)
+
+        else:
+            tk.messagebox.showerror('Invalid Input', 'Please enter exactly two column names '
+                                                     'separated by a comma. Check for spelling mistakes.')
+            self.v_entry.delete(0, 'end')
 
     def analyze_data(self):
         self.av_label.destroy()
@@ -146,6 +335,7 @@ class InputFrame(tk.Frame):
 
         self.a_entry = ctk.CTkEntry(self.av_frame, width=200)
         self.a_entry.pack(side='top')
+        # self.a_entry.bind("<Return>", lambda event: self.select_data())
 
         self.a_button = ctk.CTkButton(self.av_frame,
                                       text='Enter',
@@ -157,6 +347,8 @@ class InputFrame(tk.Frame):
 
     def __init__(self, container, table_frame=None, output_frame=None, **kwargs):
         super().__init__(container, **kwargs)
+        self.v_exit_button = None
+        self.temp_df = None
         self.a_button = None
         self.v_button = None
         self.a_entry = None
