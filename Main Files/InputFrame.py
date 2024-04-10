@@ -102,6 +102,7 @@ class InputFrame(tk.Frame):
 
         self.compute_button.configure(state=tk.DISABLED)
         self.upload_button.configure(state=tk.DISABLED)
+        self.delete_button.configure(state=tk.DISABLED)
         self.export_button.configure(state=tk.NORMAL)
         self.visual_button.configure(state=tk.NORMAL)
         # self.analysis_button.configure(state=tk.NORMAL)
