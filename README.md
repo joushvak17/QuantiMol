@@ -1,9 +1,14 @@
 ___
 Quantitative structure-activity relationship (QSAR) modeling software for molecular description calculations and activity prediction through machine learning methods.
 
-**Notes: The visualization code that is implemented in the InputFrame.py is not the most optimized. It works fine for now, but will/needs be updated later so it doesn't affect negative performance/usability.** 
+**Notes: The visualization/analysis code that is implemented in the InputFrame.py is not the most optimized. It works fine for now, but will/needs be updated later so it doesn't affect negative performance/usability.** 
 
-Project Files:
+Data Collection and Model Development:
+- DataCollectionAndPreperation.ipynb: Data collection file for EGFR dataset from CHEMBL
+- FeatureExtraction.ipynb: Feature calculation and extraction through RDKit
+- ModelDevelopment.ipynb: XGBClassifier model development
+
+Main Files:
 - Interface.py: Main interface file that runs the Tkinter window application
 - InputFrame.py: Tkinter frame that allows for data to be uploaded, deleted, computed, exported, analyzed and visualized
 - TableFrame.py: Tkinter frame that shows a dataframe of calculated descriptor values and activity predictions
