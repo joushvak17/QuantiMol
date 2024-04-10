@@ -108,6 +108,7 @@ class InputFrame(tk.Frame):
 
     def visualize_data(self):
         self.av_label.destroy()
+        self.visual_button.configure(state=tk.DISABLED)
         self.v_label = ctk.CTkLabel(self.av_frame,
                                     text='Enter the type of plot you would like to visualize:\n(Options '
                                          'include pairwise scatter plot, box plot, and histogram plot)')
@@ -157,6 +158,7 @@ class InputFrame(tk.Frame):
                                  font=('Default Font Family', 10),
                                  fg='#EEEEEE')
         self.av_label.pack(side='left', fill='both', expand=True)
+        self.visual_button.configure(state=tk.NORMAL)
 
     def select_data(self):
         entered_value = self.v_entry.get().lower()
