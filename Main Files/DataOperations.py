@@ -40,6 +40,7 @@ def compute_descriptors(smile):
 
 
 def descriptors_calculation(smiles_list, compute_function, num_processes):
+    os.environ['OMP_NUM_THREADS'] = '1'
     with Pool(processes=num_processes) as pool:
         results = pool.map(compute_function, smiles_list)
 
