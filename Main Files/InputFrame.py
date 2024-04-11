@@ -1,4 +1,5 @@
 import os
+import sys
 import tkinter as tk
 from multiprocessing import cpu_count
 from tkinter import filedialog
@@ -341,7 +342,8 @@ class InputFrame(tk.Frame):
 
         hist_win = tk.Toplevel(self)
         hist_win.wm_title("Histogram")
-        hist_win.iconbitmap("Image Files/Icon.ico")
+        icon_path = os.path.join(self.script_dir, 'Image Files', 'Icon.ico')
+        hist_win.iconbitmap(icon_path)
 
         canvas = FigureCanvasTkAgg(fig, master=hist_win)
         canvas.draw()
@@ -381,7 +383,8 @@ class InputFrame(tk.Frame):
 
         box_win = tk.Toplevel(self)
         box_win.wm_title("Boxplot")
-        box_win.iconbitmap("Image Files/Icon.ico")
+        icon_path = os.path.join(self.script_dir, 'Image Files', 'Icon.ico')
+        box_win.iconbitmap(icon_path)
 
         canvas = FigureCanvasTkAgg(fig, master=box_win)
         canvas.draw()
@@ -424,7 +427,8 @@ class InputFrame(tk.Frame):
 
             scatter_win = tk.Toplevel(self)
             scatter_win.wm_title("Scatter Plot")
-            scatter_win.iconbitmap("Image Files/Icon.ico")
+            icon_path = os.path.join(self.script_dir, 'Image Files', 'Icon.ico')
+            scatter_win.iconbitmap(icon_path)
 
             canvas = FigureCanvasTkAgg(fig, master=scatter_win)
             canvas.draw()
@@ -468,6 +472,7 @@ class InputFrame(tk.Frame):
                        highlightcolor='white',
                        highlightbackground='white',
                        highlightthickness=1)
+        self.script_dir = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
 
         upload_delete_frame = tk.Frame(self, bg='#222831')
         upload_delete_frame.pack(side='top', fill='x')
@@ -478,7 +483,8 @@ class InputFrame(tk.Frame):
         upload_delete_frame.columnconfigure(0, weight=1)
         upload_delete_frame.columnconfigure(1, weight=1)
 
-        upload_img = Image.open("Image Files/Upload.png")
+        upload_img = os.path.join(self.script_dir, 'Image Files', 'Upload.png')
+        upload_img = Image.open(upload_img)
         upload_img = upload_img.resize((50, 50))
         upload_img = ctk.CTkImage(upload_img)
 
@@ -492,7 +498,8 @@ class InputFrame(tk.Frame):
                                            image=upload_img)
         self.upload_button.grid(row=0, column=0, padx=20, pady=10)
 
-        delete_img = Image.open("Image Files/Delete.png")
+        delete_img = os.path.join(self.script_dir, 'Image Files', 'Delete.png')
+        delete_img = Image.open(delete_img)
         delete_img = delete_img.resize((50, 50))
         delete_img = ctk.CTkImage(delete_img)
 
@@ -541,7 +548,8 @@ class InputFrame(tk.Frame):
         compute_export_frame.columnconfigure(0, weight=1)
         compute_export_frame.columnconfigure(1, weight=1)
 
-        compute_img = Image.open("Image Files/Compute.png")
+        compute_img = os.path.join(self.script_dir, 'Image Files', 'Compute.png')
+        compute_img = Image.open(compute_img)
         compute_img = compute_img.resize((50, 50))
         compute_img = ctk.CTkImage(compute_img)
 
@@ -556,7 +564,8 @@ class InputFrame(tk.Frame):
                                             image=compute_img)
         self.compute_button.grid(row=0, column=0, padx=20, pady=10)
 
-        export_img = Image.open("Image Files/CSV.png")
+        export_img = os.path.join(self.script_dir, 'Image Files', 'CSV.png')
+        export_img = Image.open(export_img)
         export_img = export_img.resize((50, 50))
         export_img = ctk.CTkImage(export_img)
 
@@ -579,7 +588,8 @@ class InputFrame(tk.Frame):
         self.analysis_visual_frame.columnconfigure(0, weight=1)
         self.analysis_visual_frame.columnconfigure(1, weight=1)
 
-        analysis_img = Image.open("Image Files/Analysis.png")
+        analysis_img = os.path.join(self.script_dir, 'Image Files', 'Analysis.png')
+        analysis_img = Image.open(analysis_img)
         analysis_img = analysis_img.resize((50, 50))
         analysis_img = ctk.CTkImage(analysis_img)
 
@@ -594,7 +604,8 @@ class InputFrame(tk.Frame):
                                              command=self.analyze_data)
         self.analysis_button.grid(row=0, column=0, padx=(30, 25), pady=10)
 
-        visual_img = Image.open("Image Files/Visualization.png")
+        visual_img = os.path.join(self.script_dir, 'Image Files', 'Visualization.png')
+        visual_img = Image.open(visual_img)
         visual_img = visual_img.resize((50, 50))
         visual_img = ctk.CTkImage(visual_img)
 

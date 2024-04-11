@@ -1,4 +1,6 @@
 import io
+import os
+import sys
 import tkinter as tk
 from tkinter import messagebox, ttk
 
@@ -20,13 +22,16 @@ class OutputFrame(tk.Frame):
         self.pack_propagate(0)
         self.input_frame = None
 
+        script_dir = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+
         button_frame = tk.Frame(self, bg='#222831')
         button_frame.pack(side='top', fill='x')
 
         top_sep = ttk.Separator(self, orient='horizontal')
         top_sep.pack(side='top', expand=True, fill='x')
 
-        previous_img = Image.open("Image Files/Previous.png")
+        previous_img = os.path.join(script_dir, 'Image Files', 'Previous.png')
+        previous_img = Image.open(previous_img)
         previous_img = previous_img.resize((50, 50))
         previous_img = ctk.CTkImage(previous_img)
 
@@ -41,7 +46,8 @@ class OutputFrame(tk.Frame):
                                           image=previous_img)
         self.btn_previous.pack(side='left', padx=5, pady=10)
 
-        next_img = Image.open("Image Files/Next.png")
+        next_img = os.path.join(script_dir, 'Image Files', 'Next.png')
+        next_img = Image.open(next_img)
         next_img = next_img.resize((50, 50))
         next_img = ctk.CTkImage(next_img)
 
@@ -63,7 +69,8 @@ class OutputFrame(tk.Frame):
         self.entry.pack(side='left')
         self.entry.bind("<Return>", lambda event: self.search_image())
 
-        search_img = Image.open('Image Files/search.png')
+        search_img = os.path.join(script_dir, 'Image Files', 'Search.png')
+        search_img = Image.open(search_img)
         search_img = search_img.resize((50, 50))
         search_img = ctk.CTkImage(search_img)
 
