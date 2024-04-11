@@ -1,6 +1,7 @@
 from multiprocessing import Pool
 
 import pandas as pd
+import os
 from rdkit import Chem
 from rdkit.Chem import (rdMolDescriptors as
                         rdmd,
