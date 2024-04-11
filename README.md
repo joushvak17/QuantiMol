@@ -4,7 +4,7 @@ Quantitative structure-activity relationship (QSAR) modeling software for molecu
 **Notes: The visualization/analysis code that is implemented in the InputFrame.py is not the most optimized. It works fine for now, but will/needs be updated later so it doesn't affect negative performance/usability and gives the user more options towards exploring the data.** 
 
 Data Collection and Model Development:
-- DataCollectionAndPreperation.ipynb: Data collection file for EGFR dataset from CHEMBL
+- DataCollectionAndPreperation.ipynb: Data collection file for EGFR dataset from ChEMBL
 - FeatureExtraction.ipynb: Feature calculation and extraction through RDKit
 - ModelDevelopment.ipynb: XGBClassifier model development
 
