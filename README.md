@@ -1,7 +1,7 @@
 ___
 Quantitative structure-activity relationship (QSAR) modeling software for molecular description calculations and activity prediction through machine learning methods.
 
-**Notes: The visualization/analysis code that is implemented in the InputFrame.py is not the most optimized. It works fine for now, but will/needs be updated later so it doesn't affect negative performance/usability.** 
+**Notes: The visualization/analysis code that is implemented in the InputFrame.py is not the most optimized. It works fine for now, but will/needs be updated later so it doesn't affect negative performance/usability and gives the user more options towards exploring the data.** 
 
 Data Collection and Model Development:
 - DataCollectionAndPreperation.ipynb: Data collection file for EGFR dataset from CHEMBL
