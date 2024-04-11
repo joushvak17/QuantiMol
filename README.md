@@ -15,17 +15,17 @@ Main Files:
 - TableFrame.py: Tkinter frame that shows a dataframe of calculated descriptor values and activity predictions
 - OutputFrame.py: Tkinter frame that allows for user to navigate through the uploaded data, visualize 2D molecular images, and see individual values
 
-Image Files (Main Files):
-- Icon.ico: Main interface file icon image
-- Analysis.png: Image file for data analysis button
-- Compute.png: Image file for compute button
-- CSV.png: Image file for export button
-- Delete.png: Image file for delete button
-- Next.png: Image file for next button
-- Previous.png: Image file for previous button
-- Search.png: Image file for search button
-- Upload.png: Image file for upload button
-- Visualization.png: Image file for data visualization button
+Image Files (Main Files): All images are acquired from Flaticon.com
+- Icon.ico: Main interface file icon image. Made by Wanicon
+- Analysis.png: Image file for data analysis button. Made by RaftelDesign
+- Compute.png: Image file for compute button. Made by RaftelDesign
+- CSV.png: Image file for export button. Made by Mpanicon
+- Delete.png: Image file for delete button. Made by Futuer
+- Next.png: Image file for next button. Made by Pixel Perfect
+- Previous.png: Image file for previous button. Made by Pixel Perfect
+- Search.png: Image file for search button. Made by Maxim Basinski Premium
+- Upload.png: Image file for upload button. Made by Freepik
+- Visualization.png: Image file for data visualization button. Made by Fajri Rama
 
 MLModels (Main Files):
 - XGBClassifierEGFR.joblib: Machine learning classifier for binary activity class prediction (82% accuracy).
