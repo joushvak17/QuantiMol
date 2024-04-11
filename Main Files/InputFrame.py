@@ -72,6 +72,9 @@ class InputFrame(tk.Frame):
             tk.messagebox.showwarning('Data error', 'No data available for export!')
 
     def compute_data(self):
+        self.compute_button.configure(state=tk.DISABLED)
+        self.upload_button.configure(state=tk.DISABLED)
+        self.delete_button.configure(state=tk.DISABLED)
         selected_items = self.treelist.selection()
         num_processes = cpu_count()
 
@@ -100,9 +103,6 @@ class InputFrame(tk.Frame):
 
         self.table_frame.show_dataframe(self.computed_df)
 
-        self.compute_button.configure(state=tk.DISABLED)
-        self.upload_button.configure(state=tk.DISABLED)
-        self.delete_button.configure(state=tk.DISABLED)
         self.export_button.configure(state=tk.NORMAL)
         self.visual_button.configure(state=tk.NORMAL)
         self.analysis_button.configure(state=tk.NORMAL)
@@ -116,11 +116,7 @@ class InputFrame(tk.Frame):
                                          'option as of right now is data summary.\n If '
                                          'you wish to do data summary and column,\n'
                                          ' enter "data summary, column name")')
-        self.a_label.pack(side='top', pady=10)
-
         self.a_entry = ctk.CTkEntry(self.av_frame, width=200)
-        self.a_entry.pack(side='top', pady=10)
-        self.a_entry.bind("<Return>", lambda event: self.a_select_data())
 
         self.a_button = ctk.CTkButton(self.av_frame,
                                       text='Enter',
@@ -129,7 +125,6 @@ class InputFrame(tk.Frame):
                                       border_color='#F6B17A',
                                       border_width=2,
                                       command=self.v_select_data)
-        self.a_button.pack(side='top', pady=10)
 
         self.a_exit_button = ctk.CTkButton(self.av_frame,
                                            text='Exit',
@@ -138,6 +133,12 @@ class InputFrame(tk.Frame):
                                            border_color='#F6B17A',
                                            border_width=2,
                                            command=self.exit_analysis_data)
+
+        self.update_idletasks()
+        self.a_label.pack(side='top', pady=10)
+        self.a_entry.pack(side='top', pady=10)
+        self.a_entry.bind("<Return>", lambda event: self.a_select_data())
+        self.a_button.pack(side='top', pady=10)
         self.a_exit_button.pack(side='top', pady=10)
 
     def exit_analysis_data(self):
@@ -149,9 +150,10 @@ class InputFrame(tk.Frame):
             self.a_button.pack_forget()
         if hasattr(self, "a_exit_button"):
             self.a_exit_button.pack_forget()
-        if hasattr(self, "tree_frame"):
+        if getattr(self, "tree_frame", None):
             self.tree_frame.pack_forget()
 
+        self.update_idletasks()
         self.av_label = tk.Label(self.av_frame,
                                  bg='#222831',
                                  text='Data Analysis/Visualization Frame',
@@ -175,17 +177,18 @@ class InputFrame(tk.Frame):
 
         self.tree_frame = tk.Frame(self.av_frame, width=480, height=320)
         self.tree_frame.pack_propagate(0)
-        self.tree_frame.pack()
 
         tree_scrollbar_x = tk.Scrollbar(self.tree_frame, orient="horizontal")
-        tree_scrollbar_x.pack(side='bottom', fill='x')
 
         tree = ttk.Treeview(self.tree_frame,
                             xscrollcommand=tree_scrollbar_x.set,
                             show='headings')
-        tree.pack(fill='both', expand=True)
 
         tree_scrollbar_x.config(command=tree.xview)
+
+        self.tree_frame.pack()
+        tree_scrollbar_x.pack(side='bottom', fill='x')
+        tree.pack(fill='both', expand=True)
 
         if len(entered_values) == 1 and entered_values[0] == 'data summary':
             data_summary = self.lower_df[columns].describe().round(2)
@@ -222,11 +225,8 @@ class InputFrame(tk.Frame):
         self.v_label = ctk.CTkLabel(self.av_frame,
                                     text='Enter the type of plot you would like to visualize:\n(Options '
                                          'include pairwise scatter plot, box plot, and histogram plot)')
-        self.v_label.pack(side='top', pady=10)
 
         self.v_entry = ctk.CTkEntry(self.av_frame, width=200)
-        self.v_entry.pack(side='top', pady=10)
-        self.v_entry.bind("<Return>", lambda event: self.v_select_data())
 
         self.v_button = ctk.CTkButton(self.av_frame,
                                       text='Enter',
@@ -235,7 +235,6 @@ class InputFrame(tk.Frame):
                                       border_color='#F6B17A',
                                       border_width=2,
                                       command=self.v_select_data)
-        self.v_button.pack(side='top', pady=10)
 
         self.v_exit_button = ctk.CTkButton(self.av_frame,
                                            text='Exit',
@@ -244,6 +243,12 @@ class InputFrame(tk.Frame):
                                            border_color='#F6B17A',
                                            border_width=2,
                                            command=self.exit_visualize_data)
+
+        self.update_idletasks()
+        self.v_label.pack(side='top', pady=10)
+        self.v_entry.pack(side='top', pady=10)
+        self.v_entry.bind("<Return>", lambda event: self.v_select_data())
+        self.v_button.pack(side='top', pady=10)
         self.v_exit_button.pack(side='top', pady=10)
 
     def exit_visualize_data(self):
@@ -262,6 +267,7 @@ class InputFrame(tk.Frame):
         if hasattr(self, "v_exit_button"):
             self.v_exit_button.destroy()
 
+        self.update_idletasks()
         self.av_label = tk.Label(self.av_frame,
                                  bg='#222831',
                                  text='Data Analysis/Visualization Frame',
