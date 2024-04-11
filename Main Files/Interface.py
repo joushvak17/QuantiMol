@@ -25,7 +25,6 @@ class Interface(tk.Tk):
         script_dir = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
         icon_path = os.path.join(script_dir, 'Image Files', 'Icon.ico')
 
-        # self.iconbitmap("Image Files/Icon.ico")
         self.iconbitmap(icon_path)
 
         table_frame = TableFrame(self)

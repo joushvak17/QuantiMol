@@ -89,7 +89,8 @@ class InputFrame(tk.Frame):
             df.rename(columns={df.columns[0]: 'Smiles'}, inplace=True)
             descriptors_df = descriptors_calculation(df['Smiles'].tolist(), compute_descriptors, num_processes)
 
-            model = load("MLModels/XGBClassifierEGFR.joblib")
+            model_path = os.path.join(self.script_dir, 'MLModels', 'XGBClassifierEGFR.joblib')
+            model = load(model_path)
             predictions = model.predict(descriptors_df)
             descriptors_df['Predicted Activity'] = predictions
             descriptors_df['Predicted Activity'] = descriptors_df['Predicted Activity'].map({0: 'Inactive',
