@@ -1,7 +1,6 @@
 import os
 import sys
 import tkinter as tk
-from multiprocessing import cpu_count
 from tkinter import filedialog
 from tkinter import messagebox
 from tkinter import ttk
@@ -9,12 +8,14 @@ from tkinter import ttk
 import customtkinter as ctk
 import numpy as np
 import pandas as pd
+# Import xgboost regardless os usage
+import xgboost
 from PIL import Image
 from joblib import load
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
 
-from DataOperations import compute_descriptors, descriptors_calculation
+from DataOperations import descriptors_calculation
 
 
 class InputFrame(tk.Frame):
@@ -77,7 +78,6 @@ class InputFrame(tk.Frame):
         self.upload_button.configure(state=tk.DISABLED)
         self.delete_button.configure(state=tk.DISABLED)
         selected_items = self.treelist.selection()
-        num_processes = cpu_count()
 
         for item in selected_items:
             values = self.treelist.item(item, 'values')
@@ -87,7 +87,7 @@ class InputFrame(tk.Frame):
             df = pd.read_csv(file_path)
 
             df.rename(columns={df.columns[0]: 'Smiles'}, inplace=True)
-            descriptors_df = descriptors_calculation(df['Smiles'].tolist(), compute_descriptors, num_processes)
+            descriptors_df = descriptors_calculation(df['Smiles'].tolist())
 
             model_path = os.path.join(self.script_dir, 'MLModels', 'XGBClassifierEGFR.joblib')
             model = load(model_path)

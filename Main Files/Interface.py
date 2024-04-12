@@ -1,6 +1,6 @@
-import tkinter as tk
 import os
 import sys
+import tkinter as tk
 
 from InputFrame import InputFrame
 from OutputFrame import OutputFrame
