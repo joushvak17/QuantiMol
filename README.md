@@ -1,5 +1,4 @@
 ___
-Quantitative structure-activity relationship (QSAR) modeling software for molecular description calculations using RDKit and binary (active, inactive) activity prediction through machine learning classification method.
 
 **Notes: The visualization/analysis code that is implemented in the InputFrame.py is not the most optimized. It works fine for now, but will/needs be updated later so it doesn't affect negative performance/usability and gives the user more options towards exploring the data.** 
 
