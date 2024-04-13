@@ -13,6 +13,8 @@ Main Files:
 - InputFrame.py: Tkinter frame that allows for data to be uploaded, deleted, computed, exported, analyzed and visualized
 - TableFrame.py: Tkinter frame that shows a dataframe of calculated descriptor values and activity predictions
 - OutputFrame.py: Tkinter frame that allows for user to navigate through the uploaded data, visualize 2D molecular images, and see individual values
+- Interface.spec: File that defines the PyInstaller configurations
+- hook -xgboost.py: File that defines additional operations, for XGBoost library, that need to be performed at runtime when using PyInstaller
 
 Image Files (Main Files): All images are acquired from Flaticon.com
 - Icon.ico: Main interface file icon image. Made by Wanicon
