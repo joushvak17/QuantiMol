@@ -48,7 +48,7 @@ Finally a user can perform some data visualization using the "Data Visualize" bu
 
 ## 💻 Installation
 
-The current version of the software is v1.0.0 and can be downloaded through the releases. You will be prompted to select a location to install the folder and you can create a desktop shortcut if you want. About ~500 MB of free disk space is required. 
+The current version of the software is v1.0.0 and can be downloaded through the releases. You will be prompted to select a location to install the folder and you can create a desktop shortcut if you want. About ~500 MB of free disk space is required. Source code and executable can be found in releases.
 
 ## 📜 License
 
