@@ -8,8 +8,9 @@ from tkinter import ttk
 import customtkinter as ctk
 import numpy as np
 import pandas as pd
+# TODO: Import lightgbm, will be replacing xgboost
 # Import xgboost regardless os usage
-import xgboost
+# import xgboost
 from PIL import Image
 from joblib import load
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
@@ -87,8 +88,10 @@ class InputFrame(tk.Frame):
             df = pd.read_csv(file_path)
 
             df.rename(columns={df.columns[0]: 'Smiles'}, inplace=True)
+            # TODO: Add the Molfeat featurizer to the dataframe using the smiles column
             descriptors_df = descriptors_calculation(df['Smiles'].tolist())
 
+            # TODO: Replace xgboost with lightgbm
             model_path = os.path.join(self.script_dir, 'MLModels', 'XGBClassifierEGFR.joblib')
             model = load(model_path)
             predictions = model.predict(descriptors_df)
