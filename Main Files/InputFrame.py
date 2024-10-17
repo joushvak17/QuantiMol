@@ -88,9 +88,10 @@ class InputFrame(tk.Frame):
 
             df.rename(columns={df.columns[0]: 'Smiles'}, inplace=True)
             # TODO: Add the Molfeat featurizer to the dataframe using the smiles column
-            transformer = FPVecTransformer().from_state_dict('MLModels/fpv_desc2d_dict.yml')
+            # transformer = FPVecTransformer.from_state_yaml_file('Main Files/MLModels/fpv_desc2d_dict.yml')
+            transformer = FPVecTransformer(kind="desc2D")
             features = transformer(df['Smiles'].tolist())
-            features_df = pd.DataFrame(features, columns=transformer.feature_names)
+            features_df = pd.DataFrame(features, index=df['Smiles'].index)
             descriptors_df = pd.concat([descriptors_calculation(df['Smiles'].tolist()), features_df], axis=1)
             
             # TODO: Replace xgboost with lightgbm
