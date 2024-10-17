@@ -11,7 +11,7 @@ class TableFrame(tk.Frame):
         self.configure(width=700, height=350)
 
         vsb = tk.Scrollbar(self, orient='vertical', borderwidth=0, relief='flat')
-        vsb.pack(side='left', fill='y')
+        vsb.pack(side='right', fill='y')
 
         hsb = tk.Scrollbar(self, orient='horizontal', borderwidth=0, relief='flat')
         hsb.pack(side='bottom', fill='x')
