@@ -96,8 +96,8 @@ class InputFrame(tk.Frame):
             model_path = os.path.join(self.script_dir, 'MLModels', 'lgb_92_model.pkl')
             model = load(model_path)
             predictions = model.predict(model_df)
-            descriptors_df['Predicted Activity'] = predictions
-            descriptors_df['Predicted Activity'] = descriptors_df['Predicted Activity'].map({0: 'Inactive',
+            descriptors_df['Predicted Activity'] = predictions.round(0).astype(int)
+            descriptors_df['Predicted Activity'] = descriptors_df['Predicted Activity'].map({0: 'Inactive', 
                                                                                              1: 'Active'})
 
             num_smiles = len(df['Smiles'])
