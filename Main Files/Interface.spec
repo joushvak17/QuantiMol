@@ -4,10 +4,14 @@
 a = Analysis(
     ['Interface.py'],
     pathex=[],
-    binaries = [('C:\\Users\\Joushva Kamble\\anaconda3\\envs\\FirstProject\\Lib\\site-packages\\xgboost\\lib\\xgboost.dll',
-             'xgboost\\lib\\')],
-    datas = [('C:\\Users\\Joushva Kamble\\anaconda3\\envs\\FirstProject\\Lib\\site-packages\\xgboost\\VERSION', 'xgboost'),
-         ('Image Files', 'Image Files'), ('MLModels', 'MLModels')],
+    binaries=[
+        (r'C:\Users\Joushva Kamble\miniconda3\envs\FirstProject\Lib\site-packages\lightgbm\lib\lib_lightgbm.lib', 'lightgbm\\lib\\')
+    ],
+    datas=[
+        (r'C:\Users\Joushva Kamble\miniconda3\envs\FirstProject\Lib\site-packages\lightgbm\VERSION.txt', 'lightgbm'),
+        ('Image Files', 'Image Files'),
+        ('MLModels', 'MLModels')
+    ],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -21,6 +25,7 @@ exe = EXE(
     pyz,
     a.scripts,
     a.binaries,
+    a.zipfiles,
     a.datas,
     [],
     name='EGFR QSAR Modeling Software',
@@ -31,10 +36,16 @@ exe = EXE(
     upx_exclude=[],
     runtime_tmpdir=None,
     console=False,
-    disable_windowed_traceback=False,
-    argv_emulation=False,
-    target_arch=None,
-    codesign_identity=None,
-    entitlements_file=None,
     icon='Image Files/Icon.ico'
+)
+
+coll = COLLECT(
+    exe,
+    a.binaries,
+    a.zipfiles,
+    a.datas,
+    strip=False,
+    upx=True,
+    upx_exclude=[],
+    name='EGFR QSAR Modeling Software'
 )
