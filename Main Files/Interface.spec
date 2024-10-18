@@ -9,6 +9,7 @@ a = Analysis(
     ],
     datas=[
         (r'C:\Users\Joushva Kamble\miniconda3\envs\FirstProject\Lib\site-packages\lightgbm\VERSION.txt', 'lightgbm'),
+        (r'C:\Users\Joushva Kamble\miniconda3\envs\FirstProject\Lib\site-packages\pmapper\smarts_features.txt', 'pmapper'),
         ('Image Files', 'Image Files'),
         ('MLModels', 'MLModels')
     ],
