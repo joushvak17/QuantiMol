@@ -1,5 +1,4 @@
-# Files
-Main Files\Interface.spec
-
 # Folders
 __pycache__/
+build
+dist
