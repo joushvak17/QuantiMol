@@ -4,14 +4,17 @@
 a = Analysis(
     ['Interface.py'],
     pathex=[],
-    binaries=[],
+    binaries=[
+        (r'C:\Users\Joushva Kamble\miniconda3\envs\FirstProject\Lib\site-packages\lightgbm\bin\lib_lightgbm.dll', 'lightgbm\lib')   
+    ],
     datas=[
         (r'C:\Users\Joushva Kamble\miniconda3\envs\FirstProject\Lib\site-packages\pmapper\smarts_features.txt', 'pmapper'),
+        (r'C:\Users\Joushva Kamble\miniconda3\envs\FirstProject\Lib\site-packages\molfeat\data\skey_parameters.csv', 'molfeat/data'),
+        (r'C:\Users\Joushva Kamble\miniconda3\envs\FirstProject\Lib\site-packages\datamol\data\salts_solvents.smi', 'datamol/data'),
         ('Image Files', 'Image Files'),
         ('MLModels', 'MLModels')
     ],
     hiddenimports=[
-        'molfeat.trans.fp',  # Add any other hidden imports here
         'rdkit',
         'rdkit.Chem',
         'rdkit.Chem.Draw',
@@ -32,14 +35,14 @@ a = Analysis(
         'datamol',
         'pmapper',
         'ctk',
-        'h5py._hl.files',  # Add h5py hidden imports
+        'h5py._hl.files',  
         'dbm.gnu',
         'dbm.ndbm',
         'rdkit.Chem.Pharm2D.SigFactory',
         'molfeat.calc._map4',
         'darkdetect._mac_detect'
     ],
-    hookspath=['Main Files/Hooks'],
+    hookspath=['Main Files/hooks'],
     hooksconfig={},
     runtime_hooks=[],
     excludes=[],
