@@ -87,18 +87,21 @@ class InputFrame(tk.Frame):
             df = pd.read_csv(file_path)
 
             df.rename(columns={df.columns[0]: 'Smiles'}, inplace=True)
+            # TODO: Uncomment the following lines to use molfeat featurizer
             transformer = FPVecTransformer(kind="desc2D")
-            features = transformer(df['Smiles'].tolist())
+            features = transformer(df['Smiles'])
             features_df = pd.DataFrame(features, index=df['Smiles'].index)
             descriptors_df = descriptors_calculation(df['Smiles'].tolist())
             model_df = pd.concat([descriptors_df, features_df], axis=1)
+            # TODO: Uncomment the following lines to use lightgbm model
+            descriptors_df = model_df
             
-            model_path = os.path.join(self.script_dir, 'MLModels', 'lgb_92_model.pkl')
-            model = load(model_path)
-            predictions = model.predict(model_df)
-            descriptors_df['Predicted Activity'] = predictions.round(0).astype(int)
-            descriptors_df['Predicted Activity'] = descriptors_df['Predicted Activity'].map({0: 'Inactive', 
-                                                                                             1: 'Active'})
+            # model_path = os.path.join(self.script_dir, 'MLModels', 'lgb_92_model.pkl')
+            # model = load(model_path)
+            # predictions = model.predict(model_df)
+            # descriptors_df['Predicted Activity'] = predictions.round(0).astype(int)
+            # descriptors_df['Predicted Activity'] = descriptors_df['Predicted Activity'].map({0: 'Inactive', 
+            #                                                                                  1: 'Active'})
 
             num_smiles = len(df['Smiles'])
             df['Smile No.'] = np.arange(1, num_smiles + 1)
