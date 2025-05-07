@@ -1,9 +1,0 @@
-_molfeat_version: 0.10.1
-args:
-  dtype: float
-  kind: desc2D
-  length: 2000
-  n_jobs: 1
-  parallel_kwargs: null
-  verbose: false
-name: FPVecTransformer
