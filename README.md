@@ -3,7 +3,7 @@
   <p align="center"><strong>Quantitative structure-activity relationship (QSAR) modeling software for molecular description calculations</strong></p>
 </div>
 
-# ![alt text](https://github.com/joushvak17/EGFR-QSAR-Modeling-Software/blob/master/Main%20Files/UI_Image.jpg)
+# ![alt text](https://github.com/joushvak17/QSAR-Modeling-Software/blob/master/assets/ui_image.jpg)
 
 ## 📑 File Outline 
 
