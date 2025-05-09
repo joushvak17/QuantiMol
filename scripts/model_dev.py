@@ -117,7 +117,8 @@ def main() -> None:
     df = pd.concat([df_data_before, descriptor_df, df_data_after], axis=1)
 
     # Drop the "standard_value" column and start with the third column
-    df = df.drop(df[-2], axis=1, inplace=True)
+    # df = df.drop(df[-2], axis=1, inplace=True)
+    df = df.drop(columns=["standard_value"])
     df = df.iloc[:, 2:]
 
     # Create the x and y data
@@ -125,7 +126,7 @@ def main() -> None:
     y = df["class"]
 
     # Create the transformer and transform the data
-    smiles = X["canonical_smiles"]
+    smiles = activity_df["canonical_smiles"]
     transformer = FPVecTransformer(kind="desc2D", dtype=float)
     features = transformer(smiles)
     features_df = pd.DataFrame(features, index=smiles.index)
