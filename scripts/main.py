@@ -10,7 +10,10 @@ from sklearn.metrics import accuracy_score
 from molfeat.trans.fp import FPVecTransformer
 
 
-# TODO: Move this function to a separate file
+# Define constants
+IMPORTANT_COLUMNS = ["molecule_chembl_id", "canonical_smiles", "standard_value"]
+UPPER_THRESHOLD = 1000
+LOWER_THRESHOLD = 100
 
 
 def main() -> None:
@@ -20,43 +23,40 @@ def main() -> None:
         None: Returns None after processing the data.
     """
 
-    # Prompt user for a search string
-    search_string: str = input("Enter a search string: ")  # Cancer
+    # Prompt the user for a search string
+    search_string: str = input("Enter a search string: ")  # e.g., "Cancer"
     logger.info(f"Searching for: {search_string}")
 
-    # Create a activity client and search for the given string
+    # Create an activity client and search for the given string
     activity_client = new_client.activity
     activity_query = activity_client.search(search_string)
 
     # Convert to a DataFrame and print the number of records
-    activity_df = pd.DataFrame.from_records(activity_query)
-    logger.info(f"Number of records found: {len(activity_df)}")
+    activity_df = pd.DataFrame.from_dict(activity_query)
+    if activity_df.empty:
+        logger.error("No records found.")
+        return None
+    else:
+        logger.info(f"Number of records found: {len(activity_df)}")
 
-    # FIXME: Perform dataframe operations in a more efficient way
-    # Filter out NA values in the "standard_value" column
-    activity_df = activity_df[activity_df.standard_value.notna()]
-
-    # Filter out NA values in the "canonical_smiles" column
-    activity_df = activity_df[activity_df.canonical_smiles.notna()]
-
-    # Drop duplicates based on "canonical_smiles"
-    activity_df = activity_df.drop_duplicates(["canonical_smiles"])
-
-    # Set the important columns
-    imp_col = ["molecule_chembl_id", "canonical_smiles", "standard_value"]
-    activity_df = activity_df[imp_col]
-
-    # FIXME: Perform data filtering in a more efficient way
-    # Change the data type of "standard_value" to float
-    activity_df["standard_value"] = activity_df["standard_value"].astype(float)
-
-    # Filter out values between 100 and 1000
-    activity_df = activity_df[~activity_df["standard_value"].between(100, 1000)]
-
-    # Append the classification column
-    activity_df["class"] = activity_df["standard_value"].apply(
-        lambda x: "inactive" if x >= 1000 else "active"
+    # Filter the DataFrame
+    activity_df = (
+        activity_df[IMPORTANT_COLUMNS]
+        .dropna(subset=["canonical_smiles", "standard_value"])
+        .drop_duplicates(["canonical_smiles"])
+        .astype({"standard_value": float})
     )
+
+    # Filter out values between the lower threshold and upper threshold
+    activity_df = activity_df[
+        ~activity_df["standard_value"].between(LOWER_THRESHOLD, UPPER_THRESHOLD)
+    ]
+
+    # Append the classification column and print the number of records
+    activity_df["class"] = activity_df["standard_value"].apply(
+        lambda x: "inactive" if x >= UPPER_THRESHOLD else "active"
+    )
+    logger.info(f"Number of records after filtering: {len(activity_df)}")
 
     # TODO: Import the descriptors from a separate file
     # Calculate descriptors
