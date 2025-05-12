@@ -15,6 +15,7 @@ from rdkit.Chem import (
 )
 
 
+# TODO: Move this function to a separate file
 def descriptors(smiles_list: list[str]) -> pd.DataFrame:
     """Calculates various molecular descriptors for a list of SMILES strings using RDKit.
 
@@ -64,6 +65,7 @@ def descriptors(smiles_list: list[str]) -> pd.DataFrame:
     return descriptor_values
 
 
+# TODO: Add logging rather than print statements
 def main() -> None:
     """Main function to fetch, process, and train data from ChEMBL.
 
@@ -72,7 +74,7 @@ def main() -> None:
     """
 
     # Prompt user for a search string
-    search_string: str = input("Enter a search string: ")
+    search_string: str = input("Enter a search string: ") # Cancer
     print(f"Searching for: {search_string}")
 
     # Create a activity client and search for the given string
@@ -121,6 +123,7 @@ def main() -> None:
     df = df.drop(columns=["standard_value"])
     df = df.iloc[:, 2:]
 
+    # TODO: Move the model training to a separate file
     # Create the x and y data
     X = df.drop(columns=["class"])
     y = df["class"]
