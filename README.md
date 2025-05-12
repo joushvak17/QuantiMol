@@ -12,11 +12,13 @@
 </div>
 
 ## 📑 Table of Contents
+
 - [Usage](#️-usage)
 - [Installation](#️-installation)
 - [License](#-license)
 
 ## ⚗️ Usage
+
 > [!NOTE]
 > The visualization/analysis code that is implemented in the InputFrame.py is not the most optimized. It works fine for now, but will/needs be updated later so it doesn't affect negative performance/usability and gives the user more options towards exploring the data.
 
@@ -27,10 +29,12 @@ Once the user uploads a file that they want, they can hit the "Compute Data" but
 Finally a user can perform some data visualization using the "Data Visualize" button, where they will recieve a prompt in the lower left corner of the software about the type of visualizations they would like to perform. As of right now only boxplot, histogram, and pairwise scatter plots are supported. A user can also do a data analysis using the "Data Analysis" button, where they will recieve a prompt in the same location. The data analysis as of right now only supports a data summary.
 
 ## ⚙️ Installation
-The current version of the software is v1.0.0 and can be downloaded through the [releases page](https://github.com/joushvak17/QuantiMol/releases), which also includes the source code. 
+
+The current version of the software is v1.0.0 and can be downloaded through the [releases page](https://github.com/joushvak17/QuantiMol/releases), which also includes the source code.
 
 > [!IMPORTANT]
 > The version that is included in the releases page is for the old software and a newer one is currently in development.
 
 ## 📜 License
+
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
