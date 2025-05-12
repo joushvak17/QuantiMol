@@ -12,9 +12,6 @@ from molfeat.trans.fp import FPVecTransformer
 
 # TODO: Move this function to a separate file
 
-# TODO: Add logging rather than print statements
-logger.
-
 
 def main() -> None:
     """Main function to fetch, process, and train data from ChEMBL.
@@ -25,7 +22,7 @@ def main() -> None:
 
     # Prompt user for a search string
     search_string: str = input("Enter a search string: ")  # Cancer
-    print(f"Searching for: {search_string}")
+    logger.info(f"Searching for: {search_string}")
 
     # Create a activity client and search for the given string
     activity_client = new_client.activity
@@ -33,8 +30,9 @@ def main() -> None:
 
     # Convert to a DataFrame and print the number of records
     activity_df = pd.DataFrame.from_records(activity_query)
-    print(f"Number of records found: {len(activity_df)}")
+    logger.info(f"Number of records found: {len(activity_df)}")
 
+    # FIXME: Perform dataframe operations in a more efficient way
     # Filter out NA values in the "standard_value" column
     activity_df = activity_df[activity_df.standard_value.notna()]
 
@@ -48,6 +46,7 @@ def main() -> None:
     imp_col = ["molecule_chembl_id", "canonical_smiles", "standard_value"]
     activity_df = activity_df[imp_col]
 
+    # FIXME: Perform data filtering in a more efficient way
     # Change the data type of "standard_value" to float
     activity_df["standard_value"] = activity_df["standard_value"].astype(float)
 
@@ -59,9 +58,11 @@ def main() -> None:
         lambda x: "inactive" if x >= 1000 else "active"
     )
 
+    # TODO: Import the descriptors from a separate file
     # Calculate descriptors
     descriptor_df = descriptors(activity_df["canonical_smiles"].tolist())
 
+    # FIXME: Perform dataframe operations in a more efficient way
     # Concatenate the descriptors with the activity data, placing the class column last
     insert_after_column: int = 1
     df_data_before = activity_df.iloc[:, : insert_after_column + 1]
