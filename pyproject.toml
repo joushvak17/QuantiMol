@@ -8,6 +8,7 @@ dependencies = [
     "joblib>=1.5.0",
     "lightgbm>=4.6.0",
     "molfeat>=0.10.1",
+    "pandas>=2.2.3",
     "rdkit>=2024.9.6",
 ]
 
@@ -15,6 +16,6 @@ dependencies = [
 dev = [
     "chembl-webresource-client>=0.10.9",
     "ipykernel>=6.29.5",
-    "pandas>=2.2.3",
+    "loguru>=0.7.3",
     "scikit-learn>=1.6.1",
 ]

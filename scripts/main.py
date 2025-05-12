@@ -2,6 +2,7 @@ import pandas as pd
 import lightgbm as lgb
 import joblib
 
+from loguru import logger
 from chembl_webresource_client.new_client import new_client
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
@@ -12,6 +13,9 @@ from molfeat.trans.fp import FPVecTransformer
 # TODO: Move this function to a separate file
 
 # TODO: Add logging rather than print statements
+logger.
+
+
 def main() -> None:
     """Main function to fetch, process, and train data from ChEMBL.
 
@@ -20,7 +24,7 @@ def main() -> None:
     """
 
     # Prompt user for a search string
-    search_string: str = input("Enter a search string: ") # Cancer
+    search_string: str = input("Enter a search string: ")  # Cancer
     print(f"Searching for: {search_string}")
 
     # Create a activity client and search for the given string

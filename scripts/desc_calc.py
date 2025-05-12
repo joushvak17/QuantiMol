@@ -32,7 +32,7 @@ def compute_weiner_index(mol: Chem.Mol) -> Optional[float]:
     return res
 
 
-def descriptors(smiles_list: List[str]) -> pd.DataFrame:
+def compute_descriptors(smiles_list: List[str]) -> pd.DataFrame:
     """Calculates various molecular descriptors for a list of SMILES strings using RDKit.
 
     Args:
