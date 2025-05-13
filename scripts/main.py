@@ -10,18 +10,17 @@ from sklearn.metrics import accuracy_score
 from molfeat.trans.fp import FPVecTransformer
 
 
-# Define constants
-IMPORTANT_COLUMNS = ["molecule_chembl_id", "canonical_smiles", "standard_value"]
-UPPER_THRESHOLD = 1000
-LOWER_THRESHOLD = 100
-
-
 def main() -> None:
     """Main function to fetch, process, and train data from ChEMBL.
 
     Returns:
         None: Returns None after processing the data.
     """
+
+    # Define constants
+    IMPORTANT_COLUMNS = ["molecule_chembl_id", "canonical_smiles", "standard_value"]
+    UPPER_THRESHOLD = 1000
+    LOWER_THRESHOLD = 100
 
     # Prompt the user for a search string
     search_string: str = input("Enter a search string: ")  # e.g., "Cancer"
