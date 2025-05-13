@@ -3,6 +3,7 @@ import lightgbm as lgb
 import joblib
 
 from loguru import logger
+from typing import List
 from chembl_webresource_client.new_client import new_client
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
@@ -18,9 +19,12 @@ def main() -> None:
     """
 
     # Define constants
-    IMPORTANT_COLUMNS = ["molecule_chembl_id", "canonical_smiles", "standard_value"]
-    UPPER_THRESHOLD = 1000
-    LOWER_THRESHOLD = 100
+    IMPORTANT_COLUMNS: List = [
+        "molecule_chembl_id",
+        "canonical_smiles",
+        "standard_value",
+    ]
+    UPPER_THRESHOLD: int = 1000
 
     # Prompt the user for a search string
     search_string: str = input("Enter a search string: ")  # e.g., "Cancer"
@@ -41,15 +45,11 @@ def main() -> None:
     # Filter the DataFrame
     activity_df = (
         activity_df[IMPORTANT_COLUMNS]
-        .dropna(subset=["canonical_smiles", "standard_value"])
         .drop_duplicates(["canonical_smiles"])
+        .dropna(subset=["canonical_smiles", "standard_value"])
         .astype({"standard_value": float})
+        .query("standard_value <= 100 or standard_value >= @UPPER_THRESHOLD")
     )
-
-    # Filter out values between the lower threshold and upper threshold
-    activity_df = activity_df[
-        ~activity_df["standard_value"].between(LOWER_THRESHOLD, UPPER_THRESHOLD)
-    ]
 
     # Append the classification column and print the number of records
     activity_df["class"] = activity_df["standard_value"].apply(
