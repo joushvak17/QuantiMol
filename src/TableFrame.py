@@ -10,21 +10,21 @@ class TableFrame(tk.Frame):
 
         self.configure(width=700, height=350)
 
-        vsb = tk.Scrollbar(self, orient='vertical', borderwidth=0, relief='flat')
-        vsb.pack(side='left', fill='y')
+        vsb = tk.Scrollbar(self, orient="vertical", borderwidth=0, relief="flat")
+        vsb.pack(side="left", fill="y")
 
-        hsb = tk.Scrollbar(self, orient='horizontal', borderwidth=0, relief='flat')
-        hsb.pack(side='bottom', fill='x')
+        hsb = tk.Scrollbar(self, orient="horizontal", borderwidth=0, relief="flat")
+        hsb.pack(side="bottom", fill="x")
 
         self.tree = ttk.Treeview(self, yscrollcommand=vsb.set, xscrollcommand=hsb.set)
-        self.tree.pack(fill='both', expand=True)
+        self.tree.pack(fill="both", expand=True)
 
         vsb.config(command=self.tree.yview)
         hsb.config(command=self.tree.xview)
 
     def show_dataframe(self, df: pd.DataFrame):
-        self.tree['columns'] = list(df.columns)
-        self.tree['show'] = 'headings'
+        self.tree["columns"] = list(df.columns)
+        self.tree["show"] = "headings"
 
         for col in self.tree.get_children():
             self.tree.delete(col)
@@ -38,4 +38,4 @@ class TableFrame(tk.Frame):
             self.tree.heading(i, text=col_name)
 
         for row in df.itertuples():
-            self.tree.insert('', 'end', values=row[1:])
+            self.tree.insert("", "end", values=row[1:])
