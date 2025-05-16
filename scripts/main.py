@@ -26,12 +26,14 @@ def main() -> None:
     ]
     UPPER_THRESHOLD: int = 1000
 
+    # Create an activity client
+    activity_client = new_client.activity
+
     # Prompt the user for a search string
     search_string: str = input("Enter a search string: ")  # e.g., "Cancer"
     logger.info(f"Searching for: {search_string}")
 
-    # Create an activity client and search for the given string
-    activity_client = new_client.activity
+    # Search for the given string
     activity_query = activity_client.search(search_string)
 
     # Convert to a DataFrame and print the number of records
@@ -64,8 +66,12 @@ def main() -> None:
     # FIXME: Perform dataframe operations in a more efficient way
     # Concatenate the descriptors with the activity data, placing the class column last
     insert_after_column: int = 1
-    df_data_before = activity_df.iloc[:, : insert_after_column + 1]
-    df_data_after = activity_df.iloc[:, insert_after_column + 1 :]
+    df_data_before = activity_df.iloc[
+        :, : insert_after_column + 1
+    ]  # activity_df.iloc[:, :-1]
+    df_data_after = activity_df.iloc[
+        :, insert_after_column + 1 :
+    ]  # activity_df["class"]
     df = pd.concat([df_data_before, descriptor_df, df_data_after], axis=1)
 
     # Drop the "standard_value" column and start with the third column
