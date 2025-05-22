@@ -102,10 +102,10 @@ def main() -> None:
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
     )
-    print("Train size: " + str(X_train.shape[0]))
-    print("Test size: " + str(X_test.shape[0]))
-    print("Number of features: " + str(X_train.shape[1]))
-    print("Number of classes: " + str(len(label_encoder.classes_)))
+    logger.info(f"Train size: {X_train.shape[0]}")
+    logger.info(f"Test size: {X_test.shape[0]}")
+    logger.info(f"Number of features: {X_train.shape[1]}")
+    logger.info(f"Number of classes: {len(label_encoder.classes_)}")
 
     # Create a LightGBM dataset
     train_data = lgb.Dataset(X_train, label=y_train)
