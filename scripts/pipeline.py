@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from molfeat.trans.fp import FPVecTransformer
 
-from desc_calc import compute_descriptors as descriptors
+from descriptors import compute_descriptors as descriptors
 
 
 def main() -> None:
@@ -64,23 +64,25 @@ def main() -> None:
     # Calculate descriptors
     descriptor_df = descriptors(activity_df["canonical_smiles"].tolist())
 
-    # FIXME: Perform dataframe operations in a more efficient way
-    # Concatenate the descriptors with the activity data, placing the class column last
-    insert_after_column: int = 1
-    df_data_before = activity_df.iloc[
-        :, : insert_after_column + 1
-    ]  # activity_df.iloc[:, :-1]
-    df_data_after = activity_df.iloc[
-        :, insert_after_column + 1 :
-    ]  # activity_df["class"]
-    df = pd.concat([df_data_before, descriptor_df, df_data_after], axis=1)
+    # Concatenate the DataFrames
+    df_combined = pd.concat([activity_df, descriptor_df], axis=1)
+
+    # Define the desired column order
+    insert_after_column = 1
+    original_cols = activity_df.columns.tolist()
+    new_order = (
+        original_cols[: insert_after_column + 1]  # Before insertion point
+        + descriptor_df.columns.tolist()  # Descriptor columns
+        + original_cols[insert_after_column + 1 :]  # After insertion point
+    )
+
+    df = df_combined[new_order]
 
     # Drop the "standard_value" column and start with the third column
     # df = df.drop(df[-2], axis=1, inplace=True)
     df = df.drop(columns=["standard_value"])
     df = df.iloc[:, 2:]
 
-    # TODO: Move the model training to a separate file
     # Create the x and y data
     X = df.drop(columns=["class"])
     y = df["class"]
