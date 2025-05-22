@@ -10,6 +10,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from molfeat.trans.fp import FPVecTransformer
 
+from desc_calc import compute_descriptors as descriptors
+
 
 def main() -> None:
     """Main function to fetch, process, and train data from ChEMBL.
@@ -59,7 +61,6 @@ def main() -> None:
     )
     logger.info(f"Number of records after filtering: {len(activity_df)}")
 
-    # TODO: Import the descriptors from a separate file
     # Calculate descriptors
     descriptor_df = descriptors(activity_df["canonical_smiles"].tolist())
 
