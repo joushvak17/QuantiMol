@@ -1,7 +1,7 @@
 [project]
 name = "quantimol"
 version = "0.1.0"
-description = "Add your description here"
+description = "QSAR modeling software for molecular description calculations and activity prediction"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
