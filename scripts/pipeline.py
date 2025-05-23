@@ -1,6 +1,7 @@
+import os
+import joblib
 import pandas as pd
 import lightgbm as lgb
-import joblib
 
 from loguru import logger
 from typing import List
@@ -138,9 +139,11 @@ def main() -> None:
     accuracy = accuracy_score(y_test, y_pred_binary)
     print(f"Accuracy: {accuracy}")
 
-    # Save the model
-    # transformer.to_state_yaml_file()
-    # joblib.dump(model, "model.pkl")
+    # Save the model to the models directory
+    model_path = os.path.join("src", "models", "model.pkl")
+    transformer.to_state_yaml_file(model_path.replace(".pkl", ".yaml"))
+    joblib.dump(model, model_path)
+    logger.info(f"Model saved to {model_path}")
 
     return None
 
