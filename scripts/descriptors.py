@@ -43,6 +43,7 @@ def compute_descriptors(smiles_list: List[str]) -> pd.DataFrame:
     """
     mol_list = [Chem.MolFromSmiles(smiles) for smiles in smiles_list]
 
+    # FIXME: There is a runtime error regarding the SMILES string
     descriptor_data = {
         "Molecular Weight": [Descriptors.ExactMolWt(mol) for mol in mol_list],
         "Number of Rotatable Bonds": [
