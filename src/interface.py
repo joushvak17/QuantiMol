@@ -1,8 +1,8 @@
 import tkinter as tk
 import loguru
-from inputframe import InputFrame
-from outputframe import OutputFrame
-from tableframe import TableFrame
+from frames.inputframe import InputFrame
+from frames.outputframe import OutputFrame
+from frames.tableframe import TableFrame
 
 
 class Interface(tk.Tk):
@@ -21,16 +21,16 @@ class Interface(tk.Tk):
         super().__init__(screenName, baseName, className, useTk, sync, use)
         self.title("QuantiMol")
 
-        self.geometry("1250x800")
+        self.geometry("1000x700")
         self.resizable(False, False)
 
         self.configure(bg="#0d1117")
 
         iframe = InputFrame(self)
-        oframe = OutputFrame(self)
         tframe = TableFrame(self)
+        oframe = OutputFrame(self)
         iframe.pack(side="left", fill="both", expand=False, padx=15, pady=15)
-        tframe.pack(side="top", fill="both", expand=True, padx=15, pady=15)
+        tframe.pack(side="top", fill="both", expand=False, padx=15, pady=15)
         oframe.pack(side="top", fill="both", expand=True, padx=15, pady=15)
 
 

@@ -1,7 +1,7 @@
 import tkinter as tk
 
 
-class OutputFrame(tk.Frame):
+class InputFrame(tk.Frame):
     def __init__(
         self,
         master=None,
@@ -16,7 +16,7 @@ class OutputFrame(tk.Frame):
         colormap="",
         container=False,
         cursor="",
-        height=350,
+        height=700,
         highlightbackground="white",
         highlightcolor="white",
         highlightthickness=1,
@@ -26,7 +26,7 @@ class OutputFrame(tk.Frame):
         relief="flat",
         takefocus=0,
         visual="",
-        width=700,
+        width=300,
     ):
         super().__init__(
             master,

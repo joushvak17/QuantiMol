@@ -16,7 +16,7 @@ class TableFrame(tk.Frame):
         colormap="",
         container=False,
         cursor="",
-        height=350,
+        height=400,
         highlightbackground="white",
         highlightcolor="white",
         highlightthickness=1,
@@ -26,7 +26,7 @@ class TableFrame(tk.Frame):
         relief="flat",
         takefocus=0,
         visual="",
-        width=700,
+        width=None,
     ):
         super().__init__(
             master,
