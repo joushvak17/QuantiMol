@@ -1,4 +1,6 @@
 import tkinter as tk
+import customtkinter as ctk
+from tkinter import ttk
 
 
 class InputFrame(tk.Frame):
@@ -16,7 +18,7 @@ class InputFrame(tk.Frame):
         colormap="",
         container=False,
         cursor="",
-        height=700,
+        height=None,
         highlightbackground="white",
         highlightcolor="white",
         highlightthickness=1,
@@ -26,7 +28,7 @@ class InputFrame(tk.Frame):
         relief="flat",
         takefocus=0,
         visual="",
-        width=300,
+        width=350,
     ):
         super().__init__(
             master,
@@ -52,3 +54,31 @@ class InputFrame(tk.Frame):
             visual=visual,
             width=width,
         )
+
+        self.propagate(False)
+
+        # NOTE: Data Input Frame - This frame is used to upload and delete data.
+        data_input_frame = tk.Frame(self, bg=bg)
+        data_input_frame.pack(side="top", fill="x")
+        data_input_frame.columnconfigure(0, weight=1)
+        data_input_frame.columnconfigure(1, weight=1)
+        self.upload_button = ctk.CTkButton(
+            data_input_frame,
+            corner_radius=64,
+            fg_color="#0F0F0F",
+            border_color="#40916c",
+            border_width=2,
+            text="Upload Data",
+        )
+        self.upload_button.grid(row=0, column=0, padx=10, pady=10, sticky="ew")
+        self.delete_button = ctk.CTkButton(
+            data_input_frame,
+            corner_radius=64,
+            fg_color="#0F0F0F",
+            border_color="#40916c",
+            border_width=2,
+            text="Delete Data",
+        )
+        self.delete_button.grid(row=0, column=1, padx=10, pady=10, sticky="ew")
+        dif_sep = ttk.Separator(self, orient="horizontal")
+        dif_sep.pack(side="top", fill="x")
