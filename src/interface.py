@@ -7,9 +7,6 @@ from frames.tableframe import TableFrame
 
 
 class Interface(tk.Tk):
-    # TODO:
-    # 1 - Figure out what size geometry to use and if it should be resizable
-    # 2 - Figure out how to set the icon and path correctly
     def __init__(
         self,
         screenName=None,
@@ -27,8 +24,8 @@ class Interface(tk.Tk):
 
         self.configure(bg="#0d1117")
 
-        icon_path = Path(__file__).parent / "images" / "Icon.ico"
         try:
+            icon_path = Path(__file__).parent / "images" / "icon.ico"
             self.iconbitmap(icon_path)
         except tk.TclError:
             loguru.logger.warning("Icon file not found, using default icon.")
