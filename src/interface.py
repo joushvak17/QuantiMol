@@ -11,7 +11,7 @@ class Interface(ctk.CTk):
     def __init__(self, fg_color="#0d1117", **kwargs):
         super().__init__(fg_color, **kwargs)
         self.title("QuantiMol")
-        self.geometry("1000x600")
+        self.geometry("1000x700")
         self.resizable(False, False)
 
         try:
@@ -23,7 +23,7 @@ class Interface(ctk.CTk):
         iframe = InputFrame(self)
         tframe = TableFrame(self)
         oframe = OutputFrame(self)
-        iframe.pack(side="left", fill="both", expand=False, padx=15, pady=15)
+        iframe.pack(side="left", fill="y", expand=False, padx=15, pady=15)
         tframe.pack(side="top", fill="both", expand=False, padx=15, pady=15)
         oframe.pack(side="top", fill="both", expand=True, padx=15, pady=15)
 
