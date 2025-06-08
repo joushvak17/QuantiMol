@@ -16,7 +16,7 @@ class TableFrame(tk.Frame):
         colormap="",
         container=False,
         cursor="",
-        height=400,
+        height=350,
         highlightbackground="white",
         highlightcolor="white",
         highlightthickness=1,

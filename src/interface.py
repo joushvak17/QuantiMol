@@ -1,5 +1,6 @@
 import tkinter as tk
 import loguru
+from pathlib import Path
 from frames.inputframe import InputFrame
 from frames.outputframe import OutputFrame
 from frames.tableframe import TableFrame
@@ -21,10 +22,16 @@ class Interface(tk.Tk):
         super().__init__(screenName, baseName, className, useTk, sync, use)
         self.title("QuantiMol")
 
-        self.geometry("1000x700")
+        self.geometry("1000x600")
         self.resizable(False, False)
 
         self.configure(bg="#0d1117")
+
+        icon_path = Path(__file__).parent / "images" / "Icon.ico"
+        try:
+            self.iconbitmap(icon_path)
+        except tk.TclError:
+            loguru.logger.warning("Icon file not found, using default icon.")
 
         iframe = InputFrame(self)
         tframe = TableFrame(self)
