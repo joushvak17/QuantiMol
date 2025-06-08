@@ -64,7 +64,7 @@ class InputFrame(tk.Frame):
         data_input_frame.columnconfigure(1, weight=1)
         self.upload_button = ctk.CTkButton(
             data_input_frame,
-            corner_radius=64,
+            height=10,
             fg_color="#0F0F0F",
             border_color="#40916c",
             border_width=2,
@@ -73,11 +73,12 @@ class InputFrame(tk.Frame):
         self.upload_button.grid(row=0, column=0, padx=10, pady=10, sticky="ew")
         self.delete_button = ctk.CTkButton(
             data_input_frame,
-            corner_radius=64,
+            height=10,
             fg_color="#0F0F0F",
             border_color="#40916c",
             border_width=2,
             text="Delete Data",
+            state="disabled",
         )
         self.delete_button.grid(row=0, column=1, padx=10, pady=10, sticky="ew")
         dif_sep = ttk.Separator(self, orient="horizontal")
