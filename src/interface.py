@@ -1,33 +1,23 @@
-import tkinter as tk
+import customtkinter as ctk
 import loguru
+
 from pathlib import Path
 from frames.inputframe import InputFrame
 from frames.outputframe import OutputFrame
 from frames.tableframe import TableFrame
 
 
-class Interface(tk.Tk):
-    def __init__(
-        self,
-        screenName=None,
-        baseName=None,
-        className="Tk",
-        useTk=True,
-        sync=False,
-        use=None,
-    ):
-        super().__init__(screenName, baseName, className, useTk, sync, use)
+class Interface(ctk.CTk):
+    def __init__(self, fg_color="#0d1117", **kwargs):
+        super().__init__(fg_color, **kwargs)
         self.title("QuantiMol")
-
         self.geometry("1000x600")
         self.resizable(False, False)
-
-        self.configure(bg="#0d1117")
 
         try:
             icon_path = Path(__file__).parent / "images" / "icon.ico"
             self.iconbitmap(icon_path)
-        except tk.TclError:
+        except Exception:
             loguru.logger.warning("Icon file not found, using default icon.")
 
         iframe = InputFrame(self)
