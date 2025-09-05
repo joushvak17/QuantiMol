@@ -1,22 +1,7 @@
 [project]
 name = "quantimol"
 version = "0.1.0"
-description = "QSAR modeling software for molecular description calculations and activity prediction"
+description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = [
-    "joblib>=1.5.0",
-    "lightgbm>=4.6.0",
-    "loguru>=0.7.3",
-    "molfeat>=0.10.1",
-    "pandas>=2.2.3",
-    "rdkit>=2024.9.6",
-]
-
-[dependency-groups]
-dev = [
-    "chembl-webresource-client>=0.10.9",
-    "ipykernel>=6.29.5",
-    "loguru>=0.7.3",
-    "scikit-learn>=1.6.1",
-]
+dependencies = []
