@@ -176,8 +176,5 @@ cython_debug/
 # VS Code settings
 .vscode/
 
-# Archive folder
-archive/
-
-# TODO file
-TODO.txt
+# Qt folder
+qt-basics/
